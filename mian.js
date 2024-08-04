@@ -1,18 +1,20 @@
+require('dotenv').config();
 const express = require("express")
 const OpenAI = require("openai")
 const app=express()
 app.use(express.json())
 
 const openai = new OpenAI({
-    apiKey:"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"
-    
+    apiKey:process.env.OPENAI_API_KEY
 })
 app.get('/getRespense',async(req,res)=>{
-    const userPrompt = req.body.userPrompt;
-    console.log(userPrompt)
+    // const userPrompt = req.body.userPrompt;
+    // console.log(userPrompt)
+    const question ="당신은 기상청입니다. 오늘 한국의 날씨를 알려주세요"
+    console.log(question)
     const response = await openai.chat.completions.create({
         model:'gpt-3.5-turbo',
-        messages :[{"role":"user","content":"hi"}],
+        messages :[{"role":"user","content":question}],
         max_tokens:100
     })
   
